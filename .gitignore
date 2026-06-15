@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+.venv/
+scores.json
+.DS_Store
