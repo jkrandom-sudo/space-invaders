@@ -21,19 +21,22 @@ class Bullet:
     """
 
     CHAR = '|'
+    DEFAULT_BOARD_HEIGHT = 20
 
-    def __init__(self, x: int, y: int, direction: int):
+    def __init__(self, x: int, y: int, direction: int, board_height: int = None):
         """初始化子弹
 
         Args:
             x: 起始列坐标
             y: 起始行坐标
             direction: 移动方向 (-1 向上, 1 向下)
+            board_height: 游戏板高度（默认20）
         """
         self.x = x
         self.y = y
         self.direction = direction
         self.active = True
+        self.board_height = board_height if board_height is not None else self.DEFAULT_BOARD_HEIGHT
 
     def update(self):
         """更新子弹位置
@@ -43,7 +46,7 @@ class Bullet:
         """
         self.y += self.direction
         # 超出上下边界则失效
-        if self.y < 0 or self.y > 30:
+        if self.y < 0 or self.y > self.board_height + 10:
             self.active = False
 
     def __repr__(self) -> str:

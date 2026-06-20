@@ -167,7 +167,7 @@ class EnemyGroup:
         # 每个敌人有 shoot_probability 概率射击
         for enemy in active_enemies:
             if random.random() < self.shoot_probability:
-                bullet = Bullet(enemy.x, enemy.y + 1, 1)
+                bullet = Bullet(enemy.x, enemy.y + 1, 1, self.board_height)
                 self.bullets.append(bullet)
 
     def get_active_enemies(self) -> list[Enemy]:

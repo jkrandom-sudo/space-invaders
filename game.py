@@ -96,12 +96,22 @@ class Game:
             # Windows
             import msvcrt  # type: ignore
             if msvcrt.kbhit():
-                return msvcrt.getch().decode('utf-8', errors='ignore')
+                ch = msvcrt.getch()
+                if isinstance(ch, bytes):
+                    ch = ch.decode('utf-8', errors='ignore')
+                # Validate single character
+                if len(ch) == 1:
+                    return ch
+                return ''
             return ''
         except ImportError:
             # Unix — 使用 select 非阻塞检查
             if select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], []):
-                return sys.stdin.read(1)
+                ch = sys.stdin.read(1)
+                # Validate single character input
+                if len(ch) == 1:
+                    return ch
+                return ''
             return ''
 
     # ──────────────── 游戏生命周期 ────────────────
@@ -289,6 +299,7 @@ class Game:
                 self.state = 'PLAYING'
             elif key == 'q':
                 self.running = False
+            # 其他按键在暂停状态时被忽略（保持暂停）
 
     # ──────────────── 游戏逻辑更新 ────────────────
 

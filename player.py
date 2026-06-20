@@ -65,7 +65,7 @@ class Player:
 
         从玩家当前位置向上发射一颗子弹。
         """
-        bullet = Bullet(self.x, self.y - 1, -1)
+        bullet = Bullet(self.x, self.y - 1, -1, self.board_height)
         self.bullets.append(bullet)
 
     def update(self):
